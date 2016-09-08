@@ -1,5 +1,19 @@
 # file: postgresql/tasks/install_yum.yml
 
+- name: Define packages to be installed
+  set_fact:
+    postgres_packages:
+      - "postgresql{{ postgresql_version_terse }}-server"
+      - "postgresql{{ postgresql_version_terse }}"
+      - "postgresql{{ postgresql_version_terse }}-contrib"
+  when: not postgresql_docker_mode
+
+- name: Define packages to be installed (docker mode)
+  set_fact:
+    postgres_packages:
+      - "postgresql{{ postgresql_version_terse }}"
+  when: postgresql_docker_mode
+
 # The standard ca-certs are needed because  without them apt_key will fail to
 # validate www.postgresql.org (or probably any other source).
 - name: PostgreSQL | Make sure the CA certificates are available
@@ -25,9 +39,7 @@
     state: present
   environment: "{{ postgresql_env }}"
   with_items:
-    - "postgresql{{ postgresql_version_terse }}-server"
-    - "postgresql{{ postgresql_version_terse }}"
-    - "postgresql{{ postgresql_version_terse }}-contrib"
+    - "{{ postgres_packages }}"
 
 - name: PostgreSQL | PGTune
   yum:

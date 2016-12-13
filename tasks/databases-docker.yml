@@ -2,7 +2,7 @@
 
 # Prepare facts for the docker configuration
 - set_fact:
-    postgres_login_host_switch: "--host {{postgresql_login_host}} --port {{postgresql_port}}"
+    postgres_login_host_switch: "--host {{postgresql_login_host}} --port {{postgresql_login_port}}"
     postgres_env_switch:
       PGPASSWORD: "{{postgresql_admin_pwd}}"
 

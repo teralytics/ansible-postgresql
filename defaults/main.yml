@@ -17,6 +17,7 @@ postgresql_admin_user: "postgres"
 postgresql_admin_pwd: ""
 postgresql_default_auth_method: "trust"
 postgresql_login_host: "localhost"
+postgresql_login_port: 5432
 
 # The user/group that will run postgresql process or service
 postgresql_service_user: "{{ postgresql_admin_user }}"

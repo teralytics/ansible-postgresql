@@ -7,7 +7,7 @@
 
 # Prepare facts for the non-docker configuration
 - set_fact:
-    postgres_login_host_switch: ""
+    postgres_login_host_switch: "--port {{postgresql_port}}"
     postgres_env_switch: {}
 
 - include: databases-common.yml

@@ -19,7 +19,7 @@
 
 - name: PostgreSQL | Add extensions to the databases
   become: yes
-  become_user: "{{ postgresql_admin_user }}"
+  become_user: "{{ (postgresql_docker_mode) | ternary('root', postgresql_service_user) }}"
   postgresql_ext:
     db: "{{ item.0.db }}"
     login_user: "{{ postgresql_service_user }}"
